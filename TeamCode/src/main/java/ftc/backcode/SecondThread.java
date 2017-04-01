@@ -3,13 +3,6 @@ package ftc.backcode;
 /**
  * Created by ironOwlKing on 2/4/2017.
  */
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-import org.firstinspires.ftc.teamcode.LightOnlyAutonomous;
-
-import java.util.EmptyStackException;
-
-import ftc.backcode.OpModeBase;
 
 public class SecondThread implements Runnable {
 
