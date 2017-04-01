@@ -12,7 +12,7 @@
 //import javax.imageio.ImageIO;
 //
 ///**
-// * Created by Takumi the HEN HAO and Jordan the annoying at union on 3/25/17.
+// * Created by Takumi the and Jordan the annoying at union on 3/25/17.
 // */
 //
 //public abstract class imageGrabber extends OpMode {

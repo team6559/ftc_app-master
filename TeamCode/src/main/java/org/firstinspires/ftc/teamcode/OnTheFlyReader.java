@@ -34,7 +34,7 @@ public class OnTheFlyReader extends OpModeBase {
         try {
             in = (List<MotionPoint>) new ObjectInputStream(new FileInputStream(Environment.getExternalStorageDirectory() + "/robotSaves/" + "current.mtmp"));
         } catch (FileNotFoundException FNFE) {
-            telemetry.addData("FIILE IS NOT FOUND", 1);
+            telemetry.addData("FILE IS NOT FOUND", 1);
             System.out.println(FNFE.getStackTrace());
         } catch (IOException IOE) {
             telemetry.addData("IO EXCEPTION", 2);

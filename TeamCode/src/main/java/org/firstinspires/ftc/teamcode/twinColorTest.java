@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by union on 3/24/17.
  */
-@Autonomous(group = "Autonomous", name = "TwoCDIMTest")
+@Autonomous(group = "Autonomous", name = "TwoTypeColorSensorTest")
 public class twinColorTest extends OpMode {
 
     public static ColorSensor colorMid;
