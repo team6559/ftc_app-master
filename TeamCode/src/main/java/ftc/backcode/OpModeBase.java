@@ -36,9 +36,9 @@ public abstract class OpModeBase extends OpMode {
     public void init()
     {
         //Motors
-        midAddr = new I2cAddr(10);
-        backAddr = new I2cAddr(20);
-        beaconAddr = new I2cAddr(30);
+//        midAddr = new I2cAddr(10);
+//        backAddr = new I2cAddr(20);
+//        beaconAddr = new I2cAddr(30);
 //        telemetry.addData("First Address", midAddr.get7Bit());
 //        telemetry.addData("First Address", midAddr.get8Bit());
         right1 = hardwareMap.dcMotor.get("frontRight");
