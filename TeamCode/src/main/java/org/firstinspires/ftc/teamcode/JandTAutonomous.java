@@ -10,7 +10,7 @@ import ftc.backcode.OpModeBase;
 /**
  * Created by JORDAN AND TAKUMI GOZAIMASU on 2/9/2017.
  */
-@Autonomous(name = "JordanAndTakumi", group = "Autonomous")
+//@Autonomous(name = "JordanAndTakumi", group = "Autonomous")
 public class JandTAutonomous extends OpModeBase {
     public static TimerTask shoot2, shootPause2, shootAgain2, stopAll2, ramBall2, stopAllAgain2, flip2, turnToSide2, stopAllAgain3;
     public static Timer time2;

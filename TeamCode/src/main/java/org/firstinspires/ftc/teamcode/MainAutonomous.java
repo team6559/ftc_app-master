@@ -10,7 +10,7 @@ import ftc.backcode.Stage;
  * Created by union on 11/15/16.
  */
 
-@Autonomous (name = "Autonomous", group = "UserOP")
+//@Autonomous (name = "Autonomous", group = "UserOP")
 public class MainAutonomous extends OpModeBase {
 
     public void start()
@@ -25,7 +25,7 @@ public class MainAutonomous extends OpModeBase {
 
 
 //        int rgb0 = OpModeBase.colorFront.argb();
-        int rgb1 = OpModeBase.colorMid.argb();
+        int rgb1 = 0;
 //        int rgb2 = OpModeBase.colorBack.argb();
         int rgb3Red = OpModeBase.colorBeacon.red();
         int rgb3Blue = OpModeBase.colorBeacon.blue();

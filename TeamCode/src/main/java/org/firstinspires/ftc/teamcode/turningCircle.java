@@ -5,7 +5,7 @@ import ftc.backcode.OpModeBase;
 /**
  * Created by admin on 3/30/2017.
  */
-@TeleOp(name = "Circle",group = "UserOP")
+@TeleOp(name = "Circle", group = "UserOP")
 public class turningCircle extends OpModeBase{
 
     //Radius from pole to the edge of the robot

@@ -8,7 +8,7 @@ import ftc.backcode.OpModeBase;
 /**
  * Created by ironOwlKing on 2/4/2017.
  */
-@Autonomous(group = "Autonomous", name = "DUI")
+@Autonomous(name = "DUI", group = "Autonomous")
 public class LightOnlyAutonomousSwitch extends OpModeBase {
 
     int stage = 0;
@@ -16,30 +16,13 @@ public class LightOnlyAutonomousSwitch extends OpModeBase {
     long time;
 
     public void loop() {
-        telemetry.addData("RedFront",colorMid.red());
-        telemetry.addData("GreenFront",colorMid.green());
-        telemetry.addData("BlueFront",colorMid.blue());
-        telemetry.addData("AlphaFront",colorMid.alpha());
-        telemetry.addData("ArgbFront", colorMid.argb());
-//        telemetry.addData("RedRear",colorBack.red());
-//        telemetry.addData("GreenRear",colorBack.green());
-//        telemetry.addData("BlueRear",colorBack.blue());
-//        telemetry.addData("AlphaRear",colorBack.alpha());
-//        telemetry.addData("ArgbRear", colorBack.argb());
-        telemetry.addData("RedBeacon",colorBeacon.red());
-        telemetry.addData("GreenBeacon",colorBeacon.green());
-        telemetry.addData("BlueBeacon",colorBeacon.blue());
-        telemetry.addData("AlphaBeacon",colorBeacon.alpha());
-        telemetry.addData("ArgbBeacon", colorBeacon.argb());
+
         telemetry.addData("stage", stage);
         switch (stage) {
             case 0:
                 if (stage == 0) {
                     move(-1, 1, 0, false);
-                    if (colorMid.red() > 280) {
-                        move (0,0,0,false);
-                        stage++;
-                    }
+
                 }
             case 1:
                 if (stage == 1) {

@@ -16,7 +16,7 @@ import java.util.Calendar;
  * Created by union on 11/15/16.
  */
 
-@Autonomous (name = "LightOnlyAutonomous", group = "UserOP")
+//@Autonomous (name = "LightOnlyAutonomous", group = "UserOP")
 public class LightOnlyAutonomous extends OpModeBase {
 
     public static boolean isBlue = true;

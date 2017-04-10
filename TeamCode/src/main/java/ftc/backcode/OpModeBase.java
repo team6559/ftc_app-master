@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.DigitalChannelController;
 import com.qualcomm.robotcore.hardware.I2cAddr;
+import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
@@ -25,22 +26,13 @@ public abstract class OpModeBase extends OpMode {
     public static DcMotor left2;
     public static DcMotor right2;
     public static DcMotor catapult;
-    public static ColorSensor colorMid;
-//    public static ColorSensor colorBack;
+    public static I2cDevice colorMid;
     public static ColorSensor colorBeacon;
-    public static I2cAddr midAddr, backAddr, beaconAddr;
     public static Servo flipper;
-    //  public static UltrasonicSensor usLeft;io
-    //   public static UltrasonicSensor usRight;
 
     public void init()
     {
         //Motors
-//        midAddr = new I2cAddr(10);
-//        backAddr = new I2cAddr(20);
-//        beaconAddr = new I2cAddr(30);
-//        telemetry.addData("First Address", midAddr.get7Bit());
-//        telemetry.addData("First Address", midAddr.get8Bit());
         right1 = hardwareMap.dcMotor.get("frontRight");
         left1 = hardwareMap.dcMotor.get("frontLeft");
         right2 = hardwareMap.dcMotor.get("backRight");
@@ -49,18 +41,8 @@ public abstract class OpModeBase extends OpMode {
         catapult = hardwareMap.dcMotor.get("Catapult");
 
         //Color Sensors
-        colorMid = hardwareMap.colorSensor.get("colorMid");
-//        colorBack = hardwareMap.colorSensor.get("colorBack");
         colorBeacon = hardwareMap.colorSensor.get("colorBeacon");
-       //colorMid.setI2cAddress(midAddr);
-        //colorBeacon.setI2cAddress(beaconAddr);
-        //colorBack.setI2cAddress(backAddr);
-        //Servos
         flipper = hardwareMap.servo.get("flipper");
-
-        //Ultrasonic Sensors
-        //    usLeft = hardwareMap.ultrasonicSensor.get("usLeft");
-        //    usRight = hardwareMap.ultrasonicSensor.get("usRight");
 
         flipper.setPosition(0);
     }

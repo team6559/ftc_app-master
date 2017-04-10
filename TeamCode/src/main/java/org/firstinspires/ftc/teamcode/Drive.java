@@ -6,7 +6,7 @@ import ftc.backcode.OpModeBase;
 
 
 
-@TeleOp(name = "Drive",group = "UserOP")
+@TeleOp(name = "Drive", group = "UserOP")
 public class Drive extends OpModeBase {
 
     //Values used to calculate power
@@ -32,21 +32,6 @@ public class Drive extends OpModeBase {
         else {
             flipper.setPosition(0);
         }
-        telemetry.addData("RedFront",colorMid.red());
-        telemetry.addData("GreenFront",colorMid.green());
-        telemetry.addData("BlueFront",colorMid.blue());
-        telemetry.addData("AlphaFront",colorMid.alpha());
-        telemetry.addData("ArgbFront", colorMid.argb());
-//        telemetry.addData("RedRear",colorBack.red());
-//        telemetry.addData("GreenRear",colorBack.green());
-//        telemetry.addData("BlueRear",colorBack.blue());
-//        telemetry.addData("AlphaRear",colorBack.alpha());
-//        telemetry.addData("ArgbRear", colorBack.argb());
-        telemetry.addData("RedBeacon",colorBeacon.red());
-        telemetry.addData("GreenBeacon",colorBeacon.green());
-        telemetry.addData("BlueBeacon",colorBeacon.blue());
-        telemetry.addData("AlphaBeacon",colorBeacon.alpha());
-        telemetry.addData("ArgbBeacon", colorBeacon.argb());
 
     }
 
