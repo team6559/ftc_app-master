@@ -26,12 +26,12 @@ public class ArrayQueue<AnyType> {
     }
 
     public void close(){
-        while (!isEmpty()) remove();// Discard all elements
+        while (!isEmpty()) remove(); // Discard all elements
     }
 
     public boolean isEmpty() {return head == tail;}
 
-    public int length() {return (tail + queueSize - head) % queueSize;}
+    public int length() { return (tail + queueSize - head) % queueSize; }
 
     public void add(AnyType element) {
         int nextTail    = (tail +1) % queueSize;

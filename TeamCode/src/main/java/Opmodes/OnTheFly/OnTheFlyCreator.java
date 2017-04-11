@@ -2,6 +2,7 @@ package Opmodes.OnTheFly;
 
 import android.os.Environment;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import java.io.FileNotFoundException;
@@ -14,19 +15,26 @@ import java.io.*;
 
 import General.DataType.MotionPoint;
 import General.DataType.Vector2;
-import General.Utility.OpModeBase;
+import General.Utility.OpModeGeneral;
 
 /**
  * Created by bryanperkins on 1/1/01.
  */
 @TeleOp (name = "On The Fly Writer", group = "OnTheFly" )
 
-public class OnTheFlyCreator extends OpModeBase {
+public class OnTheFlyCreator extends OpMode {
 
     public static final int RES = 5;
     private long milliseconds;
     private long startTimeSinceEpoch;
     List<MotionPoint> points = new ArrayList<MotionPoint>();
+
+    public void init()
+    {
+        OpModeGeneral.allInit(hardwareMap);
+    }
+
+
     public void start()
     {
         startTimeSinceEpoch = System.currentTimeMillis();
@@ -41,7 +49,7 @@ public class OnTheFlyCreator extends OpModeBase {
                 i++;
             }
         }
-        move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x,false);
+        OpModeGeneral.mecanumMove(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x,false);
         //Save inputs based on resolution
         milliseconds = System.currentTimeMillis() - startTimeSinceEpoch;
         telemetry.addData("Time:", milliseconds);

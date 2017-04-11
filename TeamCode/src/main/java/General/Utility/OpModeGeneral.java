@@ -9,16 +9,20 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.DigitalChannelController;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
+import Devices.Drivers.AdafruitSensor;
+import Opmodes.Sensor.AdafruitRGB;
+
 /**
  * Created by union on 11/8/16.
  */
 
-public abstract class OpModeBase extends OpMode {
+public class OpModeGeneral {
 
     public static DcMotor left1;
     public static DcMotor right1;
@@ -27,10 +31,18 @@ public abstract class OpModeBase extends OpMode {
     public static DcMotor right2;
     public static DcMotor catapult;
     public static I2cDevice colorMid;
-    public static ColorSensor colorBeacon;
+    public static AdafruitSensor colorBeacon;
     public static Servo flipper;
 
-    public void init()
+
+    public static void allInit (HardwareMap hardwareMap)
+    {
+        motorInit(hardwareMap);
+        sensorInit(hardwareMap);
+        servoInit(hardwareMap);
+    }
+
+    public static void motorInit (HardwareMap hardwareMap)
     {
         //Motors
         right1 = hardwareMap.dcMotor.get("frontRight");
@@ -39,27 +51,24 @@ public abstract class OpModeBase extends OpMode {
         left2 = hardwareMap.dcMotor.get("backLeft");
         combine = hardwareMap.dcMotor.get("combine");
         catapult = hardwareMap.dcMotor.get("Catapult");
+    }
 
-        //Color Sensors
-        colorBeacon = hardwareMap.colorSensor.get("colorBeacon");
+    public static void servoInit(HardwareMap hardwareMap)
+    {
         flipper = hardwareMap.servo.get("flipper");
-
         flipper.setPosition(0);
     }
 
-    public void loop()
+    public static void sensorInit (HardwareMap hardwareMap)
     {
-
-    }
-
-    public void start()
-    {
+        //Color Sensors
+        colorBeacon = new AdafruitSensor(hardwareMap, "colorBeacon");
 
     }
 
     private static double _topLeft, _topRight, _bottomLeft, _bottomRight, _maxVector;
 
-    public static void move(double leftX, double leftY, double rightX, boolean negated){
+    public static void mecanumMove (double leftX, double leftY, double rightX, boolean negated){
         //Each joystick alone gives the wheel a unique set of instructions
         //These equations add them all together
         if (negated) {
@@ -91,18 +100,18 @@ public abstract class OpModeBase extends OpMode {
         right2.setPower(_bottomRight/_maxVector);
     }
 
-    public static void turn(double turnSpeed){
-        move(0,0,turnSpeed,false);
+    public static void mecanumTurn(double turnSpeed){
+        mecanumMove(0,0,turnSpeed,false);
     }
 
-    public static void driveAngle(float angle, float power)
+    public static void mecanumDriveAngle(float angle, float power)
     {
         float b = (float) Math.sin(90-angle);
         float a = (float) (Math.pow(power,2) - Math.pow(b,2));
-        move(a, b, 0,false);
+        mecanumMove(a, b, 0,false);
     }
 
-    public static void resetEncoders(boolean useEncoders)
+    public static void resetDriveEncoders(boolean useEncoders)
     {
         left1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         left2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

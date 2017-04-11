@@ -3,6 +3,7 @@ package Opmodes.OnTheFly;
 import android.os.Environment;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import General.DataType.MotionPoint;
-import General.Utility.OpModeBase;
 import General.DataType.Vector2;
+import General.Utility.OpModeGeneral;
 
 /**
  * Created by union on 2/7/17.
@@ -21,7 +22,7 @@ import General.DataType.Vector2;
 
 @Autonomous (name = "On The Fly Reader", group = "OnTheFly" )
 
-public class OnTheFlyReader extends OpModeBase {
+public class OnTheFlyReader extends OpMode {
 
     List<MotionPoint> points = new ArrayList<MotionPoint>();
     List<MotionPoint> in;
@@ -31,6 +32,11 @@ public class OnTheFlyReader extends OpModeBase {
     public static final int RES = 5;
     private long milliseconds;
     private long startTimeSinceEpoch;
+
+    public void init()
+    {
+        OpModeGeneral.allInit(hardwareMap);
+    }
 
     public void start() {
         try {
@@ -54,7 +60,7 @@ public class OnTheFlyReader extends OpModeBase {
         }
         MotionPoint currentPoint = points.get(i);
         Vector2 vec = currentPoint.vec;
-        move(vec.x,vec.y,vec.rot,false);
+        OpModeGeneral.mecanumMove(vec.x,vec.y,vec.rot,false);
         milliseconds = System.currentTimeMillis() - startTimeSinceEpoch;
         telemetry.addData("Time:", milliseconds);
 

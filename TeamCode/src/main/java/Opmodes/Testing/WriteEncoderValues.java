@@ -1,8 +1,8 @@
 package Opmodes.Testing;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import General.Utility.OpModeBase;
+import General.Utility.OpModeGeneral;
 
 /**
  * Created by union on 11/11/16.
@@ -11,32 +11,27 @@ import General.Utility.OpModeBase;
 
 @TeleOp(name = "testOp", group = "TeleOp")
 
-public class WriteEncoderValues extends OpModeBase {
+public class WriteEncoderValues extends OpMode {
 
     @Override
     public void init()
     {
-        right1 = hardwareMap.dcMotor.get("rightFront");
-        left1 = hardwareMap.dcMotor.get("leftFront");
-        right2 = hardwareMap.dcMotor.get("rightBack");
-        left2 = hardwareMap.dcMotor.get("leftBack");
-        resetEncoders(true);
+        OpModeGeneral.motorInit(hardwareMap);
+        OpModeGeneral.resetDriveEncoders(true);
     }
-
-    public void start() {}
 
     public void loop()
     {
 
-        move(gamepad1.y ? 0.25 : 0,gamepad1.x ? 0.25 : 0 ,0, false);
-        telemetry.addData("topLeft: ",left1.getCurrentPosition());
-        telemetry.addData("bottomRight: ",right2.getCurrentPosition());
-        telemetry.addData("topRight: ",right1.getCurrentPosition());
-        telemetry.addData("bottomLeft: ",left2.getCurrentPosition());
+        OpModeGeneral.mecanumMove(gamepad1.y ? 0.25 : 0,gamepad1.x ? 0.25 : 0 ,0, false);
+        telemetry.addData("topLeft: ",OpModeGeneral.left1.getCurrentPosition());
+        telemetry.addData("bottomRight: ",OpModeGeneral.right2.getCurrentPosition());
+        telemetry.addData("topRight: ",OpModeGeneral.right1.getCurrentPosition());
+        telemetry.addData("bottomLeft: ",OpModeGeneral.left2.getCurrentPosition());
 
         if (gamepad1.start)
         {
-            resetEncoders(true);
+            OpModeGeneral.resetDriveEncoders(true);
         }
 
     }
