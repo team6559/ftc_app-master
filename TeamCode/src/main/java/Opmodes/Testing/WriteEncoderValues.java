@@ -9,7 +9,7 @@ import General.Utility.OpModeGeneral;
  */
 
 
-@TeleOp(name = "testOp", group = "TeleOp")
+@TeleOp(name = "Write Encoder Values", group = "TeleOp")
 
 public class WriteEncoderValues extends OpMode {
 

@@ -27,9 +27,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 
-@TeleOp(name = "Color Sensors", group = "Samples")
+@TeleOp(name = "Sample Color Sensor", group = "Samples")
 // @Autonomous(...) is the other common choice
-//@Disabled
+@Disabled
 public class SampleColor extends OpMode {
 
     /* Declare OpMode members. */
@@ -43,8 +43,6 @@ public class SampleColor extends OpMode {
     I2cDeviceSynch colorAreader;
     I2cDeviceSynch colorCreader;
 
-    // TouchSensor touch;         //Instance of TouchSensor - for changing color sensor mode
-
     boolean touchState = false;  //Tracks the last known state of the touch sensor
     boolean LEDState = true;     //Tracks the mode of the color sensor; Active = true, Passive = false
 
@@ -57,15 +55,8 @@ public class SampleColor extends OpMode {
 
         //the below lines set up the configuration file
         colorA = hardwareMap.i2cDevice.get("cc");
-    //    colorC = hardwareMap.i2cDevice.get("cc");
-
         colorAreader = new I2cDeviceSynchImpl(colorA, I2cAddr.create8bit(0x3c), false);
-     //   colorCreader = new I2cDeviceSynchImpl(colorC, I2cAddr.create8bit(0x3c), false);
-
         colorAreader.engage();
-     //   colorCreader.engage();
-
-      //  touch = hardwareMap.touchSensor.get("t");
     }
 
     /*
@@ -84,11 +75,9 @@ public class SampleColor extends OpMode {
 
         if(LEDState){
             colorAreader.write8(3, 0);    //Set the mode of the color sensor using LEDState
-     //       colorCreader.write8(3, 0);    //Set the mode of the color sensor using LEDState
         }
         else{
             colorAreader.write8(3, 1);    //Set the mode of the color sensor using LEDState
-            //colorCreader.write8(3, 1);    //Set the mode of the color sensor using LEDState
         }
         //Active - For measuring reflected light. Cancels out ambient light
         //Passive - For measuring ambient light, eg. the FTC Color Beacon
@@ -105,16 +94,11 @@ public class SampleColor extends OpMode {
         //The mode of the color sensor is saved to the sensor's long term memory. Just like flash drives, the long term memory has a life time in the 10s or 100s of thousands of cycles.
         //This seems like a lot but if your program wrote to the long term memory every time though the main loop, it would shorten the life of your sensor.
 
-
         colorAcache = colorAreader.read(0x09, 1);
-     //   colorCcache = colorCreader.read(0x04, 1);
 
         //display values
         telemetry.addData("1 #A", colorAcache[0] & 0xFF);
-      //  telemetry.addData("2 #C", colorCcache[0] & 0xFF);
-
         telemetry.addData("3 A", colorAreader.getI2cAddress().get8Bit());
-     //   telemetry.addData("4 A", colorCreader.getI2cAddress().get8Bit());
     }
 
     /*

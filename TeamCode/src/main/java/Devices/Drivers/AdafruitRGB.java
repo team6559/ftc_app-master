@@ -14,7 +14,7 @@ import Devices.General.I2cTransfer;
 
 import java.util.concurrent.locks.Lock;
 
-public class AdafruitSensor implements I2cController.I2cPortReadyCallback {
+public class AdafruitRGB implements I2cController.I2cPortReadyCallback {
 
 // --------------------------------- CONSTANTS -------------------------------------------------
 
@@ -110,7 +110,7 @@ public class AdafruitSensor implements I2cController.I2cPortReadyCallback {
 
 // --------------------------------- CLASS INIT AND CLOSE ----------------------------------------
 
-    public AdafruitSensor(HardwareMap hardwareMap, String deviceName) {
+    public AdafruitRGB(HardwareMap hardwareMap, String deviceName) {
         transferQueue       = new ArrayQueue<I2cTransfer>();
         csDev               = hardwareMap.i2cDevice.get(deviceName);
         csDevAddr           = 2*ADDRESS;

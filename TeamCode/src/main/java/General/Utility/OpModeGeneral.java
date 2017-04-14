@@ -1,22 +1,11 @@
 package General.Utility;
 
-import android.support.annotation.ColorRes;
-
-import com.qualcomm.hardware.ams.AMSColorSensor;
-import com.qualcomm.hardware.ams.AMSColorSensorImpl;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
-import com.qualcomm.robotcore.hardware.DigitalChannelController;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
-import Devices.Drivers.AdafruitSensor;
-import Opmodes.Sensor.AdafruitRGB;
+import Devices.Drivers.AdafruitRGB;
 
 /**
  * Created by union on 11/8/16.
@@ -31,7 +20,7 @@ public class OpModeGeneral {
     public static DcMotor right2;
     public static DcMotor catapult;
     public static I2cDevice colorMid;
-    public static AdafruitSensor colorBeacon;
+    public static AdafruitRGB colorBeacon;
     public static Servo flipper;
 
 
@@ -62,7 +51,7 @@ public class OpModeGeneral {
     public static void sensorInit (HardwareMap hardwareMap)
     {
         //Color Sensors
-        colorBeacon = new AdafruitSensor(hardwareMap, "colorBeacon");
+        colorBeacon = new AdafruitRGB(hardwareMap, "colorBeacon");
 
     }
 

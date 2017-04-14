@@ -1,11 +1,8 @@
 package Opmodes.Sensor;
 
-import android.provider.ContactsContract;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import Devices.Drivers.AdafruitSensor;
 import General.Utility.DataLogger;
 
 /**
@@ -14,14 +11,14 @@ import General.Utility.DataLogger;
 
 @TeleOp (name = "AdafruitTest", group = "Sensors")
 
-public class AdafruitRGB extends OpMode {
+public class AdafruitRGBTest extends OpMode {
 
-    AdafruitSensor sensor;
+    Devices.Drivers.AdafruitRGB sensor;
     DataLogger logger;
 
     public void init()
     {
-        sensor = new AdafruitSensor(hardwareMap,"adacolor");
+        sensor = new Devices.Drivers.AdafruitRGB(hardwareMap,"adacolor");
         logger.addField("Red");
         logger.addField("Green");
         logger.addField("Blue");

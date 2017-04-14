@@ -11,6 +11,7 @@ import General.Utility.OpModeGeneral;
  * Created by ironOwlKing on 2/4/2017.
  */
 @Autonomous(name = "Color Sensor Only Launch Twice Hit Two Beacon Drive Sensor", group = "Competition")
+
 public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
 
     int stage = 0;
@@ -29,7 +30,6 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
             case 0:
                 if (stage == 0) {
                     OpModeGeneral.mecanumMove(-1, 1, 0, false);
-
                 }
             case 1:
                 if (stage == 1) {
