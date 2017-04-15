@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import Devices.Drivers.AdafruitRGB;
+import Devices.Drivers.ModernRoboticsRGB;
 
 /**
  * Created by union on 11/8/16.
@@ -19,7 +20,7 @@ public class OpModeGeneral {
     public static DcMotor left2;
     public static DcMotor right2;
     public static DcMotor catapult;
-    public static I2cDevice colorMid;
+    public static ModernRoboticsRGB colorMid;
     public static AdafruitRGB colorBeacon;
     public static Servo flipper;
 
@@ -52,6 +53,7 @@ public class OpModeGeneral {
     {
         //Color Sensors
         colorBeacon = new AdafruitRGB(hardwareMap, "colorBeacon");
+        colorMid = new ModernRoboticsRGB(hardwareMap, "colorMid");
 
     }
 

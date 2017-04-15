@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import General.Utility.DataLogger;
 import General.Utility.OpModeGeneral;
 
 /**
@@ -35,5 +36,9 @@ public class EncoderBasedAutnomous extends OpMode {
     }
 
 
-    public void loop() {}
+    public void loop() {
+
+    }
+
+
 }
