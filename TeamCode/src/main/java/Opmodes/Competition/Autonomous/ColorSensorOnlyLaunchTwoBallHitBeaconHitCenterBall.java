@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.configuration.Utility;
 
+import Devices.Drivers.FieldColor;
 import General.Utility.OpModeGeneral;
 
 /**
@@ -14,33 +15,33 @@ import General.Utility.OpModeGeneral;
 
 public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
 
-    int stage = 0;
+    int stage = 1;
     boolean isBlue = true;
-    long time;
 
     public void init()
     {
         OpModeGeneral.allInit(hardwareMap);
+        OpModeGeneral.colorBeacon.togglePassive();
+        OpModeGeneral.colorMid.toggleActive();
     }
 
     public void loop() {
+        telemetry.addData("ValueMid", OpModeGeneral.colorMid.getColorValue());
+        telemetry.addData("EnumMid", OpModeGeneral.colorMid.getColorEnum());
+        telemetry.addData("ValueBack", OpModeGeneral.colorBack.getColorValue());
+        telemetry.addData("EnumBack", OpModeGeneral.colorBack.getColorEnum());
+
 
         telemetry.addData("stage", stage);
         switch (stage) {
-            case 0:
-                if (stage == 0) {
-                    OpModeGeneral.mecanumMove(-1, 1, 0, false);
-                }
             case 1:
-                if (stage == 1) {
-                    OpModeGeneral.mecanumMove(0, 1, 0, false);
-                    if (OpModeGeneral.colorBeacon.redColor() > 680 || OpModeGeneral.colorBeacon.blueColor() > 2000) {
-                        stage++;
-                    }
+                OpModeGeneral.mecanumMove(0, 1, 0, false, 0.1f);
+                if (OpModeGeneral.colorMid.getColorEnum().equals(FieldColor.WHITETAPE)) {
+                    stage++;
                 }
             case 2:
                 time = System.currentTimeMillis();
-                if (OpModeGeneral.colorBeacon.redColor() > 680) {
+                if (OpModeGeneral.colorBeacon.getColorEnum().equals(FieldColor.BEACONRED)) {
                     if (isBlue) {
                         //Right
                         if (System.currentTimeMillis() - time < 100) {
@@ -52,7 +53,8 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
                         } else {
                             stage++;
                         }
-                    } else {
+                    }
+                    else {
                         //Left
                         if (System.currentTimeMillis() - time < 100) {
                             OpModeGeneral.mecanumMove(1, 0, 0, false);
@@ -65,30 +67,7 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
                         }
                     }
                 }
-                if (OpModeGeneral.colorBeacon.blueColor() > 2000) {
-                    if (isBlue) {
-                        //Left
-                        if (System.currentTimeMillis() - time < 100) {
-                            OpModeGeneral.mecanumMove(1, 0, 0, false);
-                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-                            OpModeGeneral.mecanumMove(0, 1, 0, false);
-                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-                            OpModeGeneral.mecanumMove(0, -1, 0, false);
-                        } else {
-                            stage++;
-                        }
-                    } else {
-                        //Right
-                        if (System.currentTimeMillis() - time < 100) {
-                            OpModeGeneral.mecanumMove(-1, 0, 0, false);
-                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-                            OpModeGeneral.mecanumMove(0, 1, 0, false);
-                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-                            OpModeGeneral.mecanumMove(0, -1, 0, false);
-                        } else {
-                            stage++;
-                        }
-                    }
+
                 }
 
 //            case 3:
@@ -273,4 +252,3 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
 
 
     }
-}

@@ -15,8 +15,9 @@ public class ModernRoboticsRGBTest extends OpMode {
 
     public void init()
     {
-        sensor = new ModernRoboticsRGB(hardwareMap, "cc");
-        sensor.togglePassiveActive();
+        sensor = new ModernRoboticsRGB(hardwareMap, "cc", 0x3c);
+        sensor.togglePassive();
+
     }
     public void loop()
     {
