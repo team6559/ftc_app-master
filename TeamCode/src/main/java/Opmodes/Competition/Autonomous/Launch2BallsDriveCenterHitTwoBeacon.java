@@ -10,19 +10,21 @@ import Devices.Drivers.FieldColor;
 import General.Utility.OpModeGeneral;
 
 /**
- * Created by bryanperkins on 12/10/16.
+ * Created by admin on 4/19/2017.
  */
-@Autonomous (name = "First Match Auto", group = "Competition")
-public class LaunchTwoBallsDriveCenter extends OpMode {
-    public static TimerTask shoot, stopAllLast, shootPause, shootAgain, stopAll, stopAllAgain, flip, park;
+@Autonomous (name = "Launch 2 Balls Drive Center Hit Two Beacon", group = "Competition")
+
+public class Launch2BallsDriveCenterHitTwoBeacon extends OpMode {
+
+    public static TimerTask shoot, shootPause, shootAgain, stopAll, stopAllAgain, flip,
+            stopAllLast, park;
     public static Timer time;
     public boolean stage1Complete = false;
     public float currentTime = 0;
-    public boolean isP2Enabled = false;
+    public int stage = 0;
 
     public void init() {
         OpModeGeneral.allInit(hardwareMap);
-
         time = new Timer();
         shoot = new TimerTask() {
             public void run() {
@@ -77,11 +79,12 @@ public class LaunchTwoBallsDriveCenter extends OpMode {
 
 
         park = new TimerTask() {
-        @Override
-        public void run() {
-            OpModeGeneral.mecanumMove(-1,0,0,false);        }
-    };
-}
+            @Override
+            public void run() {
+                OpModeGeneral.mecanumMove(-1,0,0,false);        }
+        };
+
+    }
     public void start()
     {
         OpModeGeneral.mecanumMove(-1,0,0,false);
@@ -95,23 +98,59 @@ public class LaunchTwoBallsDriveCenter extends OpMode {
         time.schedule(stopAllLast, 7500);
     }
 
-    public int stage = 0;
+
     public void loop()
     {
-        if (isP2Enabled)
-        switch (stage) {
-            case 0:
-                if (stage1Complete) {
-                    if (OpModeGeneral.colorMid.getColorEnum().equals(FieldColor.WHITETAPE)) {
+        telemetry.addData("Current Stage", stage);
+        telemetry.addData("Gyro",OpModeGeneral.gyro.getHeadingData());
+        telemetry.addData("Enum", OpModeGeneral.colorMid.getColorEnum());
+        if (stage1Complete) {
+            switch (stage) {
+                case 0:
+                    if (stage1Complete) {
+                        if (OpModeGeneral.colorMid.getColorEnum().equals(FieldColor.WHITETAPE)) {
+                            stage++;
+                            currentTime = System.currentTimeMillis();
+                            OpModeGeneral.mecanumDriveAngle(-45,1);
+                        } else {
+                            OpModeGeneral.mecanumMove(1, 0, 0, false, 0.1f);
+                        }
+                    }
+                case 1:
+//                    int gyroData = OpModeGeneral.gyro.getHeadingData();
+//                    if (gyroData < -47) {
+//                        OpModeGeneral.mecanumMove(0, 0, -1, false, 0.2f);
+//                    } else if (gyroData > -43) {
+//                        OpModeGeneral.mecanumMove(0, 0, 1, false, 0.2f);
+//                    } else {
+//                        OpModeGeneral.mecanumMove(0, 0, 0, false);
+//                        stage++;
+//                    }
+                    if (System.currentTimeMillis() > currentTime + 3000){
                         stage++;
-                        currentTime = System.currentTimeMillis();
+                    }
+                case 2:
+                    OpModeGeneral.colorBeacon.togglePassive();
+                    if (OpModeGeneral.colorBeacon.getColorEnum() != FieldColor.CLEAR) {
                         OpModeGeneral.mecanumMove(0, 0, 0, false);
+                        stage++;
                     } else {
                         OpModeGeneral.mecanumMove(1, 0, 0, false, 0.1f);
                     }
-                }
-            case 1:
-                OpModeGeneral.gyro.getHeadingData();
+                case 3:
+                    //ColorBeacon is on the left
+                    if (OpModeGeneral.colorBeacon.red() > OpModeGeneral.colorBeacon.blue()) {
+                        telemetry.addData("ColorBeacon shows that red is on the left, triggering left", 0);
+                        //Triggering Left Button
+                    }
+                    if (OpModeGeneral.colorBeacon.red() <= OpModeGeneral.colorBeacon.blue()) {
+                        telemetry.addData("ColorBeacon shows that blue is on the left, triggering right", 0);
+                        //Trigger Right Button
+                    }
+                case 4:
+                    return;
+
+            }
         }
 
     }

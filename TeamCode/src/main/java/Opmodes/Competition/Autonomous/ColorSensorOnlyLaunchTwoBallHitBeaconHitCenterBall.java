@@ -17,12 +17,15 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
 
     int stage = 1;
     boolean isBlue = true;
+    float currentTime;
 
     public void init()
     {
         OpModeGeneral.allInit(hardwareMap);
         OpModeGeneral.colorBeacon.togglePassive();
         OpModeGeneral.colorMid.toggleActive();
+        OpModeGeneral.gyro.getHeadingData();
+        currentTime = System.currentTimeMillis();
     }
 
     public void loop() {
@@ -35,16 +38,22 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
         telemetry.addData("stage", stage);
         switch (stage) {
             case 1:
-                OpModeGeneral.mecanumMove(0, 1, 0, false, 0.1f);
-                if (OpModeGeneral.colorMid.getColorEnum().equals(FieldColor.WHITETAPE)) {
-                    stage++;
+                if (System.currentTimeMillis() - currentTime < 1000){
+                    OpModeGeneral.mecanumMove(0,1,0, false, 1);
+                }
+                else {
+                    OpModeGeneral.mecanumMove(0, 1, 0, false, 0.1f);
+                    if (OpModeGeneral.colorMid.getColorEnum().equals(FieldColor.WHITETAPE)) {
+                        stage++;
+                        currentTime = System.currentTimeMillis();
+                        OpModeGeneral.mecanumMove(0,0,0, false);
+                    }
                 }
             case 2:
-                time = System.currentTimeMillis();
                 if (OpModeGeneral.colorBeacon.getColorEnum().equals(FieldColor.BEACONRED)) {
                     if (isBlue) {
                         //Right
-                        if (System.currentTimeMillis() - time < 100) {
+                        if (System.currentTimeMillis() - currentTime < 100) {
                             OpModeGeneral.mecanumMove(-1, 0, 0, false);
                         } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
                             OpModeGeneral.mecanumMove(0, 1, 0, false);
@@ -52,11 +61,12 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
                             OpModeGeneral.mecanumMove(0, -1, 0, false);
                         } else {
                             stage++;
+                            currentTime = System.currentTimeMillis();
                         }
                     }
                     else {
                         //Left
-                        if (System.currentTimeMillis() - time < 100) {
+                        if (System.currentTimeMillis() - currentTime < 100) {
                             OpModeGeneral.mecanumMove(1, 0, 0, false);
                         } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
                             OpModeGeneral.mecanumMove(0, 1, 0, false);
@@ -64,6 +74,7 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
                             OpModeGeneral.mecanumMove(0, -1, 0, false);
                         } else {
                             stage++;
+                            currentTime = System.currentTimeMillis();
                         }
                     }
                 }
@@ -71,14 +82,13 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
                 }
 
 //            case 3:
-//                time = System.currentTimeMillis();
-//                if (System.currentTimeMillis() - time < 1000) {
+//                if (System.currentTimeMillis() - currentTime < 1000) {
 //                    move(1, 0, 0, false);
 //                } else if (colorMid.red() < 280) {
 //                    stage++;
+//                    currentTime = System.currentTimeMillis();
 //                }
 //            case 4:
-//                time = System.currentTimeMillis();
 //                if (colorBeacon.red() > 680) {
 //                    if (isBlue) {
 //                        //Right
@@ -130,124 +140,7 @@ public class ColorSensorOnlyLaunchTwoBallHitBeaconHitCenterBall extends OpMode {
 //                    }
 //                }
 //
-//        }  case 1:
-//                move(0, 1, 0, false);
-//                if (colorBeacon.red() > 680 || colorBeacon.blue() > 2000) {
-//                    stage++;
-//                }
-//            case 2:
-//                time = System.currentTimeMillis();
-//                if (colorBeacon.red() > 680) {
-//                    if (isBlue) {
-//                        //Right
-//                        if (System.currentTimeMillis() - time < 100) {
-//                            move(-1, 0, 0, false);
-//                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-//                            move(0, 1, 0, false);
-//                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-//                            move(0, -1, 0, false);
-//                        } else {
-//                            stage++;
-//                        }
-//                    } else {
-//                        //Left
-//                        if (System.currentTimeMillis() - time < 100) {
-//                            move(1, 0, 0, false);
-//                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-//                            move(0, 1, 0, false);
-//                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-//                            move(0, -1, 0, false);
-//                        } else {
-//                            stage++;
-//                        }
-//                    }
-//                }
-//                if (colorBeacon.blue() > 2000) {
-//                    if (isBlue) {
-//                        //Left
-//                        if (System.currentTimeMillis() - time < 100) {
-//                            move(1, 0, 0, false);
-//                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-//                            move(0, 1, 0, false);
-//                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-//                            move(0, -1, 0, false);
-//                        } else {
-//                            stage++;
-//                        }
-//                    } else {
-//                        //Right
-//                        if (System.currentTimeMillis() - time < 100) {
-//                            move(-1, 0, 0, false);
-//                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-//                            move(0, 1, 0, false);
-//                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-//                            move(0, -1, 0, false);
-//                        } else {
-//                            stage++;
-//                        }
-//                    }
-//                }
-//
-//            case 3:
-//                time = System.currentTimeMillis();
-//                if (System.currentTimeMillis() - time < 1000) {
-//                    move(1, 0, 0, false);
-//                } else if (colorMid.red() < 280) {
-//                    stage++;
-//                }
-//            case 4:
-//                time = System.currentTimeMillis();
-//                if (colorBeacon.red() > 680) {
-//                    if (isBlue) {
-//                        //Right
-//                        if (System.currentTimeMillis() - time < 100) {
-//                            move(-1, 0, 0, false);
-//                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-//                            move(0, 1, 0, false);
-//                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-//                            move(0, -1, 0, false);
-//                        } else {
-//                            stage++;
-//                        }
-//                    } else {
-//                        //Left
-//                        if (System.currentTimeMillis() - time < 100) {
-//                            move(1, 0, 0, false);
-//                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-//                            move(0, 1, 0, false);
-//                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-//                            move(0, -1, 0, false);
-//                        } else {
-//                            stage++;
-//                        }
-//                    }
-//                }
-//                if (colorBeacon.blue() > 2000) {
-//                    if (isBlue) {
-//                        //Left
-//                        if (System.currentTimeMillis() - time < 100) {
-//                            move(1, 0, 0, false);
-//                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-//                            move(0, 1, 0, false);
-//                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-//                            move(0, -1, 0, false);
-//                        } else {
-//                            stage++;
-//                        }
-//                    } else {
-//                        //Right
-//                        if (System.currentTimeMillis() - time < 100) {
-//                            move(-1, 0, 0, false);
-//                        } else if (System.currentTimeMillis() > 100 && System.currentTimeMillis() < 500) {
-//                            move(0, 1, 0, false);
-//                        } else if (System.currentTimeMillis() > 500 && System.currentTimeMillis() < 900) {
-//                            move(0, -1, 0, false);
-//                        } else {
-//                            stage++;
-//                        }
-//                    }
-//                }
-
+//        }
         }
 
 

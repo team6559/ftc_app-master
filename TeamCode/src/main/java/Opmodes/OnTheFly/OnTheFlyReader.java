@@ -58,7 +58,7 @@ public class OnTheFlyReader extends OpMode {
                 i++;
             }
         }
-        MotionPoint currentPoint = points.get(i);
+        MotionPoint currentPoint = in.get(i);
         Vector2 vec = currentPoint.vec;
         OpModeGeneral.mecanumMove(vec.x,vec.y,vec.rot,false);
         milliseconds = System.currentTimeMillis() - startTimeSinceEpoch;

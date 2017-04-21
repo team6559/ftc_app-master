@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import Devices.Drivers.AdafruitRGB;
+import Devices.Drivers.ModernRoboticsGyro;
 import Devices.Drivers.ModernRoboticsRGB;
 
 /**
@@ -21,12 +22,9 @@ public class OpModeGeneral {
     public static DcMotor right2;
     public static DcMotor catapult;
     public static ModernRoboticsRGB colorMid;
-<<<<<<< HEAD
     public static ModernRoboticsRGB colorBeacon;
     public static ModernRoboticsRGB colorBack;
-=======
-    public static AdafruitRGB colorBeacon;
->>>>>>> origin/master
+    public static ModernRoboticsGyro gyro;
     public static Servo flipper;
 
 
@@ -57,15 +55,11 @@ public class OpModeGeneral {
     public static void sensorInit (HardwareMap hardwareMap)
     {
         //Color Sensors
-<<<<<<< HEAD
         colorBeacon = new ModernRoboticsRGB(hardwareMap, "colorBeacon", 0x4c);
         colorMid = new ModernRoboticsRGB(hardwareMap, "colorMid", 0x5c);
         colorBack = new ModernRoboticsRGB(hardwareMap, "colorBack", 0x3c);
-=======
-        colorBeacon = new AdafruitRGB(hardwareMap, "colorBeacon");
-        colorMid = new ModernRoboticsRGB(hardwareMap, "colorMid");
-
->>>>>>> origin/master
+        //Gyro Sensors
+        gyro = new ModernRoboticsGyro(hardwareMap, "gyro", 0x20);
     }
 
     private static double _topLeft, _topRight, _bottomLeft, _bottomRight, _maxVector;

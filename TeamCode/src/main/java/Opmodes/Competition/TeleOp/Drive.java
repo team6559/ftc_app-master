@@ -39,7 +39,8 @@ public class Drive extends OpMode {
         if (gamepad1.a & !_lastAButton) { triggerReverse(); }
         if (gamepad1.a) { _lastAButton = true; }
         else { _lastAButton = false; }
-        OpModeGeneral.combine.setPower(-gamepad2.right_stick_y);
+        OpModeGeneral.combine.setPower(gamepad2.right_stick_y);
+        OpModeGeneral.catapult.setPower(-gamepad2.left_stick_y);
         if (gamepad2.dpad_right){
         //    OpModeGeneral.flipper.setPosition(120);
         }
